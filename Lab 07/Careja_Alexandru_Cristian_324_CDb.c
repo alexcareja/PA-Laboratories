@@ -4,15 +4,15 @@
 typedef struct QueueNode{
 	int elem;
 	struct QueueNode *next;
-}QueueNode;
+}QueueNode; // tipul de data nod dintr-o coada
 
 typedef struct Queue{
 	QueueNode *front;
 	QueueNode *rear;
 	int size;
-}Queue;
+}Queue; // tipul de data coada
 
-Queue* createQueue(void){
+Queue* createQueue(void){ // crearea unei cozi vide
 	Queue *q = (Queue *) malloc(sizeof(Queue));
 	q->front = NULL;
 	q->rear = NULL;
@@ -20,14 +20,14 @@ Queue* createQueue(void){
 	return q;
 } 
 
-int isQueueEmpty(Queue *q){
+int isQueueEmpty(Queue *q){ // verificare coada goala
 	if (q->front == NULL) {
 		return 1;
 	}
 	return 0;
 }
 
-void enqueue(Queue *q, int elem){
+void enqueue(Queue *q, int elem){ // inscriere in coada
 	q->size += 1;
 	QueueNode *node = (QueueNode *) malloc(sizeof(QueueNode));
 	node->elem = elem;
@@ -41,11 +41,11 @@ void enqueue(Queue *q, int elem){
 	q->rear = node;
 }
 
-int front(Queue* q){
+int front(Queue* q){ // vezi primul element din coada
 	return q->front->elem;
 }
 
-void dequeue(Queue* q){
+void dequeue(Queue* q){ // scoate primul element din coada
 	if (isQueueEmpty(q)) {
 		return;
 	}
@@ -60,7 +60,7 @@ void dequeue(Queue* q){
 
 
 
-void destroyQueue(Queue *q){
+void destroyQueue(Queue *q){ // distruge coada
 	while(!isQueueEmpty) {
 		dequeue(q);
 	}
@@ -93,6 +93,7 @@ void BFS() {
 	for(i = 0; i < 10; i++) {
 		vector_adiacenta[i] = createQueue();
 	}
+	// adaugarea arcelor din graful orientat
 	enqueue(vector_adiacenta[0], 1); // A->B
 	enqueue(vector_adiacenta[0], 2); // A->C
 	enqueue(vector_adiacenta[0], 7); // A->H
@@ -158,6 +159,11 @@ void BFS() {
 		printf("%c: d = %d, p = %c\n",get_char(i), d[i], get_char(p[i]));
 	}
 	printf("\n\n");
+
+	for(i = 0; i < 10; i++) {
+		destroyQueue(vector_adiacenta[i]);
+	}
+	free(vector_adiacenta)
 }
 
 void print_queue(Queue * q) {
@@ -227,6 +233,10 @@ void DFS() {
 			explorare(i, &timp, d, f, p, c, vector_adiacenta);
 		}
 	}
+	for(i = 0; i < 10; i++) {
+		destroyQueue(vector_adiacenta[i]);
+	}
+	free(vector_adiacenta)
 }
 
 void explorare(int current, int *timp, int *d, int *f, int *p, int *c, Queue **vector_adiacenta) {
