@@ -163,7 +163,7 @@ void BFS() {
 	for(i = 0; i < 10; i++) {
 		destroyQueue(vector_adiacenta[i]);
 	}
-	free(vector_adiacenta)
+	free(vector_adiacenta);
 }
 
 void print_queue(Queue * q) {
@@ -236,7 +236,7 @@ void DFS() {
 	for(i = 0; i < 10; i++) {
 		destroyQueue(vector_adiacenta[i]);
 	}
-	free(vector_adiacenta)
+	free(vector_adiacenta);
 }
 
 void explorare(int current, int *timp, int *d, int *f, int *p, int *c, Queue **vector_adiacenta) {
