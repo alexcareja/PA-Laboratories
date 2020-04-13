@@ -1,0 +1,168 @@
+
+ <> Exercitiul 1. Sa se calculeze de mana o sortare topologica pe graful din curs (pantofi camasa etc) nodurile vor fi considerata in ordine inversa alfabetica
+pt dfs vor fi calculate de mana d(u) f(u).
+
+ <> Exercitiul 2. Sa se implementeze in C algo de sortare topologica si sa se ruleze pe graful din curs. Nodurile for fi considerate:
+	a) in ordine alfabetica
+	b) in ordine invers alfabetica
+    Si sa se verifice rezultatele cu calculele de la curs si cu exercitiul 1.
+
+ <> Exercitiul 3. Sa se calculeze de mana toate componentele tare conexe din graf. Pt dfs vor fi calc de mana doar du si fu pt fiecare nod. nodurile vor fi considerate in ordine alfabetica.
+
+ <> Exercitiul 4. Sa se implementeze in C algoritmul pt CTC si sa se ruleze pe graful de la punctul 3. Nodurile in ordine alfabetica.
+
+
+camasa -> a
+cravata -> b
+haina -> c
+pantaloni -> d
+pantofi -> e
+sosete -> f
+vesta -> g
+
+
+Graful orientat pentru 3 si 4:
+A: B, G
+B: C, G
+C: E
+D: C, F
+E: D
+F:
+G: H
+H:
+I: A, J, L
+J: K
+K: I, M
+L: K
+M: N
+N: O
+O: M, P
+P:
+
+ <> Exercitiul 1:
+
+Ordine invers alfabetica:
+1:  c(g) = gri, d(g) = 1
+2:  c(c) = gri, d(c) = 2
+3:  c(c) = negru, f(c) = 3
+4:  c(g) = negru, f(g) = 4
+5:  c(f) = gri, d(f) = 5
+6:  c(e) = gri, d(e) = 6
+7:  c(e) = negru, f(e) = 7
+8:  c(f) = negru, f(f) = 8
+9:  c(d) = gri, d(d) = 9
+10: c(d) = negru, f(d) = 10
+11: c(b) = gri, d(b) = 11
+12: c(b) = negru, f(b) = 12
+13: c(a) = gri, d(a) = 13 
+14: c(a) = negru, f(a) = 14 
+
+a: d = 13, f = 14
+b: d = 11, f = 12
+c: d = 2, f = 3
+d: d = 9, f = 10
+e: d = 6, f = 7
+f: d = 5, f = 8
+g: d = 1, f = 4
+
+Sortare topologica: a, b, d, f, e, g, c
+f:                 14,12,10, 8, 7, 4, 3
+
+
+ <> Exercitiul 3:
+
+DFS:
+1: c(A) = gri, d(A) = 1
+2: c(B) = gri, d(B) = 2
+3: c(C) = gri, d(C) = 3
+4: c(E) = gri, d(E) = 4
+5: c(D) = gri, d(D) = 5
+6: c(F) = gri, d(F) = 6
+7: c(F) = negru, f(F) = 7
+8: c(D) = negru, f(D) = 8
+9: c(E) = negru, f(E) = 9
+10: c(C) = negru, f(C) = 10
+11: c(G) = gri, d(G) = 11
+12: c(H) = gri, d(H) = 12
+13: c(H) = negru, f(H) = 13
+14: c(G) = negru, f(G) = 14
+15: c(B) = negru, f(B) = 15
+16: c(A) = negru, f(A) = 16
+17: c(I) = gri, d(I) = 17
+18: c(J) = gri, d(J) = 18
+19: c(K) = gri, d(K) = 19
+20: c(M) = gri, d(M) = 20
+21: c(N) = gri, d(N) = 21
+22: c(O) = gri, d(O) = 22
+23: c(P) = gri, d(P) = 23
+24: c(P) = negru, f(P) = 24
+25: c(O) = negru, f(O) = 25
+26: c(N) = negru, f(N) = 26
+27: c(M) = negru, f(M) = 27
+28: c(K) = negru, f(K) = 28
+29: c(J) = negru, f(J) = 29
+30: c(L) = gri, d(L) = 30
+31: c(L) = negru, f(L) = 31
+32: c(I) = negru, f(I) = 32
+
+Sortare topologica: I, L, J, K, M, N, O, P, A, B, G, H, C, E, D, F
+
+Transpunem graful
+
+DFS:
+1: c(I) = gri, d(I) = 1
+2: c(K) = gri, d(K) = 2
+3: c(L) = gri, d(L) = 3
+4: c(L) = negru, f(L) = 4
+5: c(J) = gri, d(J) = 5
+6: c(J) = negru, f(J) = 6
+7: c(K) = negru, f(K) = 7
+8: c(I) = negru, f(I) = 8
+CTC: I K L J
+9: c(M) = gri, d(M) = 9
+10: c(O) = gri, d(O) = 10
+11: c(N) = gri, d(N) = 11
+12: c(N) = negru, f(N) = 12
+13: c(O) = negru, f(O) = 13
+14: c(M) = negru, f(M) = 14
+CTC: M O N
+15: c(P) = gri, d(P) = 15
+16: c(P) = negru, f(P) = 16
+CTC: P
+17: c(A) = gri, d(A) = 17
+18: c(A) = negru, f(A) = 18
+CTC: A
+19: c(B) = gri, d(B) = 19
+20: c(B) = negru, f(B) = 20
+CTC: B
+21: c(G) = gri, d(G) = 21
+22: c(G) = negru, f(G) = 22
+CTC: G
+23: c(H) = gri, d(H) = 23
+24: c(H) = negru, f(H) = 24
+CTC: H
+25: c(C) = gri, d(C) = 25
+26: c(D) = gri, d(D) = 26
+27: c(E) = gri, d(E) = 27
+28: c(E) = negru, f(E) = 28
+29: c(D) = negru, f(D) = 29
+30: c(C) = negru, f(C) = 30
+CTC: C D E
+31: c(F) = gri, c(F) = 31
+32: c(F) = negru, f(F) = 32 
+CTC: F
+
+Componente tare conexe:
+	1. I J K L (radacina in I)
+	2. M O N (radacina in M)
+	3. P
+	4. A
+	5. B
+	6. G
+	7. H
+	8. C D E (radacina in C)
+	9. F
+
+
+
+
