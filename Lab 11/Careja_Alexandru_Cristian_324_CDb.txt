@@ -1,0 +1,124 @@
+Laboratorul 11
+Arbori minimi de acoperire (Prim si Kruskal)
+
+1. Calculati de mana toti pasii algoritmului lui Prim.
+2. Impelemtati in C algoritmul Prim. Se accepta orice structui de date pentru implementare
+3. Calculati de mana toti pasii algoritmului lui Kruskal.
+4. Impelemtati in C algoritmul kruskal. Se accepta orice implementare a multimilor disjuncte
+
+La graful din curs se modifica 4 costuri:
+A-G devine 10
+B-G devine 11
+C-E devine 12
+J-K devine 14
+
+1. care e coada si care sunt valorile pt d si parintele pentru fiecare nod
+
+1. Algoritmul lui Prim
+A = {}
+Pentru fiecare u din V, d[u] = infinit, p[u] = null
+d[i] = 0;
+Q = {(a, 3), (j, 5), (l, 8), (b, inf), (c, inf), (d, inf), (e, inf), (f, inf), (g, inf), (h, inf), (k, inf)} 
+1: Q != {} Adevarat
+u = a
+A = {(a, i)}
+v = b => d[b] = 12, p[b] = a
+v = g => d[g] = 13, p[g] = a
+v = h => d[h] = 9, p[h] = a
+Q = {(j, 5), (h, 6), (l, 8), (b, 9), (g, 10), (c, inf), (d, inf), (e, inf), (f, inf), (k, inf)} 
+2: Q != {} Adevarat
+u = j
+A = {(a, i), (j, i)}
+v = k => d[k] = 14, p[k] = j
+Q = {(h, 6), (l, 8), (b, 9), (g, 10), (k, 14), (c, inf), (d, inf), (e, inf), (f, inf)} 
+3: Q != {} Adevarat
+u = h
+A = {(a, i), (j, i), (j, i), (h, a)}
+v = g => d[g] = 4, p[g] = h
+Q = {(g, 4), (l, 8), (b, 9), (k, 14), (c, inf), (d, inf), (e, inf), (f, inf)}
+4: Q != {} Adevarat
+u = g
+A = {(a, i), (j, i), (j, i), (h, a), (g, h)}
+Q = {(l, 8), (b, 9), (k, 14), (c, inf), (d, inf), (e, inf), (f, inf)}
+5: Q != {} Adevarat
+u = l
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i)}
+v = k => d[k] = 7, p[k] = l
+Q = {(k, 7), (b, 9), (c, inf), (d, inf), (e, inf), (f, inf)}
+6: Q != {} Adevarat
+u = k
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l)}
+Q = {(b, 9), (c, inf), (d, inf), (e, inf), (f, inf)}
+7: Q != {} Adevarat
+u = b
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l), (b, a)}
+v = c => d[c] = 5, p[c] = b
+Q = {(c, 6), (d, inf), (e, inf), (f, inf)}
+8: Q != {} Adevarat
+u = c
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l), (b, a), (c, b)}
+v = d => d[d] = 8, p[d] = c
+v = e => d[e] = 12, p[e] = c
+Q = {(d, 8), (e, 12), (f, inf)}
+9: Q != {} Adevarat
+u = d
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l), (b, a), (c, b), (d, c)}
+v = f => d[f] = 9, p[f] = d
+Q = {(f, 9), (e, 12)}
+10: Q != {} Adevarat
+u = f
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l), (b, a), (c, b), (d, c), (f, d)}
+v = e => d[e] = 2, p[e] = f
+Q = {(e, 2)}
+11: Q != {} Adevarat
+u = e
+A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l), (b, a), (c, b), (d, c), (f, d), (e, f)}
+Q = {}
+12 : Q != {} Fals => Final Algoritm
+
+Muchiile care formeaza AMA : A = {(a, i), (j, i), (j, i), (h, a), (g, h), (l, i), (k, l), (b, a), (c, b), (d, c), (f, d), (e, f)}
+
+          -------------------------------------------------
+nodul:    | A | B | C | D | E | F | G | H | I | J | K | L |
+          -------------------------------------------------
+parinte:  | I | A | B | C | F | D | H | A | - | I | L | I |
+          -------------------------------------------------
+
+3.
+AMA = {}
+Format muchie: (nod, nod, cost)
+Dupa sortarea E crescator dupa costul muchiilor
+E = {(e, f, 2), (i, a, 3), (g, h, 4), (b, c, 5), (i, j), (a, h, 6), (l, k, 7), (i, l, 8), (c, d, 8), (a, b, 9), (d, f, 9), (a, g, 10), (b, g, 11), (c, e, 12), (j, k, 14)}
+
+1: Extrage (e, f), nu creeaza ciclu
+Arb(e) = Arb(f) = {e, f}
+2: Extrage (i, a), nu creeaza ciclu
+Arb(i) = Arb(a) = {i, a}
+3: Extrage (g, h), nu creeaza ciclu
+Arb(g) = Arb(h) = {g, h}
+4: Extrage (b, c), nu creeaza ciclu
+Arb(b) = Arb(c) = {b, c}
+5: Extrage (i, j), nu creeaza ciclu
+Arb(i) = Arb(j) = {i, a, j}
+6: Extrage (a, h), nu creeaza ciclu
+Arb(a) = Arb(h) = {i, a, j, g, h}
+7: Extrage (l, k), nu creeaza ciclu
+Arb(l) = Arb(k) = {l, k}
+8: Extrage (i, l), nu creeaza ciclu
+Arb(i) = Arb(l) = {a, g, h, i, j, k, l}
+9: Extrage (c, d), nu creeaza ciclu
+Arb(c) = Arb(d) = {b, c, d}
+10: Extrage (a, b), nu creeaza ciclu
+Arb(a) = Arb(b) = {a, b, c, d, g, h, i, j, k, l}
+11: Extrage (d, f), nu creeaza ciclu
+Arb(d) = Arb(f) = {a, b, c, d, e, f, g, h, i, j, k, l}
+12: Extrage (a, g) si renunta la ea deoarece ar forma un ciclu
+a si g fac parte din acleasi arbore
+13: Extrage (b, g) si renunta la ea deoarece ar forma un ciclu
+b si g fac parte din acleasi arbore
+14: Extrage (c, e) si renunta la ea deoarece ar forma un ciclu
+c si e fac parte din acleasi arbore
+15: Extrage (j, k) si renunta la ea deoarece ar forma un ciclu
+j si k fac parte din acleasi arbore
+
+AMA = {(e, f, 2), (i, a, 3), (g, h, 4), (b, c, 5), (i, j), (a, h, 6), (l, k, 7), (i, l, 8), (c, d, 8), (a, b, 9), (d, f, 9)}
